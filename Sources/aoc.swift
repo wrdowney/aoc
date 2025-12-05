@@ -76,7 +76,7 @@ struct AOC: ParsableCommand {
     }
 
     private let days: [any AdventOfCodeDay.Type] = [
-        Day01.self
+        Day01.self, Day02.self
     ]
     
     private enum CodingKeys: String, CodingKey {
