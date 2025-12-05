@@ -20,11 +20,48 @@ struct Day01: AdventOfCodeDay {
     }
     
     func part1() async -> Int {
-        print(turns)
-        return turns.count
+        var position = 50
+        var result = 0
+
+        for turn in turns {
+            position = (position + turn) % 100
+            if position < 0 {
+                position += 100
+            }
+            if position == 0 {
+                result += 1
+            }
+        }
+        return result
+
     }
     
     func part2() async -> Int {
-        return turns.count
+        var position = 50
+        var result = 0
+        
+        for turn in turns {
+            let prevPosition = position
+            position += turn
+            
+            while position > 100 {
+                position -= 100
+                result += 1
+            }
+            if prevPosition == 0 {
+                position += 100
+            }
+            while position < 0 {
+                position += 100
+                result += 1
+            }
+            position %= 100
+            if position == 0 {
+                result += 1
+            }
+            // if temp < 0
+        }
+        
+        return result
     }
 }
