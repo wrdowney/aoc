@@ -34,6 +34,6 @@ struct Day02Tests {
     @Test("Day 2 Part 2 Solution")
     func testDay02_part2_solution() async {
         let day = Day02(input: Day02.input)
-        await #expect(day.part2() == 5941)
+        await #expect(day.part2() == 25663320831)
     }
 }
