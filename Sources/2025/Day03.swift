@@ -9,47 +9,53 @@ import Foundation
 
 struct Day03: AdventOfCodeDay {
     let title = "Lobby"
-    let banks: [Bank]
-    
+    let banks: [[Int]]
+
     init(input: String) {
-        banks = input.lines.map { line in
-            let batteries = line.map { Int(String($0))! }
-            var bank = Bank(batteries: batteries)
-            bank.findMaxJoltage()
-            return bank
-        }
-    }
-    
-    func part1() async -> Int {
-        return banks.reduce(0) { (sum, bank) in
-            let (i, j) = bank.maxJoltage
-            let combined = Int("\(i)\(j)")!
-            return sum + combined
-        }
-    }
-    
-    func part2() async -> Int {
-        return banks.count
-    }
-    
-    struct Bank: Sendable {
-        let batteries: [Int]
-        var maxJoltage: (Int, Int) = (0, 0)
-        
-        mutating func findMaxJoltage() {
-            var max = 0
-            
-            for i in 0..<batteries.count {
-                for j in i+1..<batteries.count {
-                    let battery1 = batteries[i]
-                    let battery2 = batteries[j]
-                    let combined = Int("\(battery1)\(battery2)")!
-                    if combined > max {
-                        max = combined
-                        maxJoltage = (battery1, battery2)
-                    }
+        banks = input
+            .lines
+            .map {
+                $0.map {
+                    Int(String($0))!
                 }
             }
+    }
+
+    func part1() async -> Int {
+        return banks.reduce(0) {
+            return $0 + maxJoltage($1, numBatteries: 2)
         }
+    }
+
+    func part2() async -> Int {
+        return banks.reduce(0) {
+            return $0 + maxJoltage($1, numBatteries: 12)
+        }
+    }
+
+    func maxJoltage(_ bank: [Int], numBatteries: Int) -> Int {
+        var joltage = 0
+        var start = bank.startIndex
+        for offset in (0..<numBatteries).reversed() {
+            let end = bank.endIndex - offset
+            let (maxPos, max) = bank[start..<end].maxAndPosition()
+            start += maxPos + 1
+            joltage *= 10
+            joltage += max
+        }
+        
+        return joltage
+    }
+}
+
+extension Array<Int>.SubSequence where Element == Int {
+    func maxAndPosition() -> (Int, Int) {
+        var max = (0, 0)
+        for (i, element) in self.enumerated() {
+            if element > max.1 {
+               max = (i, element)
+            }
+        }
+        return max
     }
 }

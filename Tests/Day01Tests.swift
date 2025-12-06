@@ -5,22 +5,22 @@
 //  Created by Will D on 12/5/25.
 //
 
-
 import Testing
+
 @testable import aoc
 
-fileprivate let testInput = """
-L68
-L30
-R48
-L5
-R60
-L55
-L1
-L99
-R14
-L82
-"""
+private let testInput = """
+    L68
+    L30
+    R48
+    L5
+    R60
+    L55
+    L1
+    L99
+    R14
+    L82
+    """
 
 @Suite("Day 1 Tests")
 struct Day01Tests {
