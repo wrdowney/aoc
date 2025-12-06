@@ -44,7 +44,7 @@ struct AOC: AsyncParsableCommand {
             let day = days[day - 1]
             await day.init(input: day.input).run()
         }
-
+        Timer.showTotal()
     }
     
     enum Day: CustomStringConvertible, Codable {

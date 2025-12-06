@@ -32,7 +32,10 @@ extension AdventOfCodeDay {
     }
 
     private func run<T>(part: Int, _ fun: () async -> T) async {
+        let timer = Timer(day, fun: "'\(title)' part \(part)")
         let solution = await fun()
+        timer.show()
         print("Solution for day \(day) '\(title)' part \(part): \(solution)")
+
     }
 }
