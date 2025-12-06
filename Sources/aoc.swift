@@ -4,7 +4,7 @@ import ArgumentParser
 import Foundation
 
 @main
-struct AOC: ParsableCommand {
+struct AOC: AsyncParsableCommand {
     @Argument(help: "The advent day", transform: { (raw: String) throws -> Day in
         if raw.lowercased() == "all" { return .allSequential }
         if raw.lowercased() == "all-parallel" { return .allParallel }
@@ -15,12 +15,6 @@ struct AOC: ParsableCommand {
     })
     var day: Day
     
-    @Option(
-        name: .shortAndLong,
-        help: "The file URL we want.",
-        transform: URL.init(fileURLWithPath:)
-    )
-    var input: URL? = nil
     
     static var today: Day {
         let components = Calendar.current.dateComponents([.day, .month], from: Date())
@@ -29,14 +23,6 @@ struct AOC: ParsableCommand {
             return .day(day)
         }
         return .allSequential
-    }
-
-    mutating func validate() throws {
-        guard let input else { return }
-        // Verify the file actually exists.
-        guard FileManager.default.fileExists(atPath: input.path) else {
-            throw ValidationError("File does not exist at \(input.path)")
-        }
     }
 
     mutating func run() async throws {
@@ -76,11 +62,11 @@ struct AOC: ParsableCommand {
     }
 
     private let days: [any AdventOfCodeDay.Type] = [
-        Day01.self, Day02.self
+        Day01.self, Day02.self, Day03.self
     ]
     
     private enum CodingKeys: String, CodingKey {
-        case day, input
+        case day
     }
 
 }
