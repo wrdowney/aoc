@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  aoc
-//
-//  Created by Will D on 12/5/25.
-//
-
 import Foundation
 
 struct Day01: AdventOfCodeDay {
