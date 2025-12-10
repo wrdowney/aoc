@@ -1,10 +1,3 @@
-//
-//  File.swift
-//  aoc
-//
-//  Created by Will D on 12/6/25.
-//
-
 import Testing
 
 @testable import aoc

@@ -45,8 +45,8 @@ struct Day04: AdventOfCodeDay {
                 var rolls = 0
                 for deltas in deltas {
 
-                    guard let nx = (x + deltas.0).inRange(of: 0..<width),
-                        let ny = (y + deltas.1).inRange(of: 0..<height)
+                    guard let nx = (x + deltas.0).bounded(by: 0..<width),
+                        let ny = (y + deltas.1).bounded(by: 0..<height)
                     else { continue }
                     if grid[nx][ny] == "@" {
                         rolls += 1
@@ -65,8 +65,4 @@ struct Day04: AdventOfCodeDay {
     }
 }
 
-extension Int {
-    func inRange(of range: Range<Int>) -> Int? {
-        return (range ~= self) ? self : nil
-    }
-}
+

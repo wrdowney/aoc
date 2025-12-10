@@ -1,11 +1,3 @@
-//
-//  Test.swift
-//  aoc
-//
-//  Created by Will D on 12/5/25.
-//
-
-
 import Testing
 @testable import aoc
 
